@@ -76,6 +76,12 @@ app.post('/error',async (req, res) => {
     res.json({status: 'updated'})
 });
 
+app.get("/recog/:id", async (req, res) => {
+    const id = Number(req.params.id);
+    const [response] = (await Recog.getInfoForFile(id))[0] as Array<RowDataPacket>;
+    res.json(response)
+})
+
 const port = process.env.PORT || 8000
 app.listen(port, () => {
     console.log("Started app on port: " + port);

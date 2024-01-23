@@ -77,6 +77,15 @@ class Recog {
 
         return db.execute(sql);
     }
+
+    static getInfoForFile(id: number) {
+        let sql = `
+        SELECT * FROM recog
+        WHERE id = ${id};
+        `
+
+        return db.execute(sql);
+    }
 }
 
 export default Recog;

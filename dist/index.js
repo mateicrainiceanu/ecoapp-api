@@ -69,6 +69,11 @@ app.post('/error', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     const _ = yield Recog_1.default.setFailed(fname, error);
     res.json({ status: 'updated' });
 }));
+app.get("/recog/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = Number(req.params.id);
+    const [response] = (yield Recog_1.default.getInfoForFile(id))[0];
+    res.json(response);
+}));
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
     console.log("Started app on port: " + port);

@@ -60,5 +60,12 @@ class Recog {
         WHERE fname = '${fname}'`;
         return db_1.db.execute(sql);
     }
+    static getInfoForFile(id) {
+        let sql = `
+        SELECT * FROM recog
+        WHERE id = ${id};
+        `;
+        return db_1.db.execute(sql);
+    }
 }
 exports.default = Recog;
