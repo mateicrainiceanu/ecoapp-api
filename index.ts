@@ -60,7 +60,7 @@ app.get("/results/:file", (req, res) => {
     res.json({ result: result })
 });
 
-app.post("/uploadfile", upload.single('photo'), async function (req, res) {
+app.post("/uploadfile", upload.single('file'), async function (req, res) {
 
     const newrecog = new Recog(req.file?.filename!)
     const [dbres] = (await newrecog.save()) as Array<RowDataPacket>;

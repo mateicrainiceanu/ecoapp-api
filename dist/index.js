@@ -56,7 +56,7 @@ app.get("/results/:file", (req, res) => {
     const result = analisedResults.find(element => element.fname === req.params.file);
     res.json({ result: result });
 });
-app.post("/uploadfile", upload.single('photo'), function (req, res) {
+app.post("/uploadfile", upload.single('file'), function (req, res) {
     var _a, _b;
     return __awaiter(this, void 0, void 0, function* () {
         const newrecog = new Recog_1.default((_a = req.file) === null || _a === void 0 ? void 0 : _a.filename);
