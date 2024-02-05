@@ -52,10 +52,10 @@ app.post("/infoforfile", (req, res) => __awaiter(void 0, void 0, void 0, functio
     const _ = yield Recog_1.default.completeRecogniton(completion);
     res.json({ answ: "ok" });
 }));
-app.get("/results/:file", (req, res) => {
-    const result = analisedResults.find(element => element.fname === req.params.file);
-    res.json({ result: result });
-});
+// app.get("/results/:file", (req, res) => {
+//     const result = analisedResults.find(element => element.fname === req.params.file)
+//     res.json({ result: result })
+// });
 app.post("/uploadfile", upload.single('file'), function (req, res) {
     var _a, _b;
     return __awaiter(this, void 0, void 0, function* () {
@@ -70,9 +70,15 @@ app.post('/error', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     res.json({ status: 'updated' });
 }));
 app.get("/recog/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    //verify id to be a number
     const id = Number(req.params.id);
-    const [response] = (yield Recog_1.default.getInfoForFile(id))[0];
-    res.json(response);
+    const results = (yield Recog_1.default.getInfoForFile(id))[0];
+    if (results.length === 0) {
+        res.json({ error: "Wrong ID", recognised: 3 });
+    }
+    else {
+        res.json(results[0]);
+    }
 }));
 const port = process.env.PORT || 8000;
 app.listen(port, () => {

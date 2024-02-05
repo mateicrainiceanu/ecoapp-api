@@ -55,10 +55,10 @@ app.post("/infoforfile",async (req, res) => {
     res.json({ answ: "ok" })
 });
 
-app.get("/results/:file", (req, res) => {
-    const result = analisedResults.find(element => element.fname === req.params.file)
-    res.json({ result: result })
-});
+// app.get("/results/:file", (req, res) => {
+//     const result = analisedResults.find(element => element.fname === req.params.file)
+//     res.json({ result: result })
+// });
 
 app.post("/uploadfile", upload.single('file'), async function (req, res) {
 
@@ -77,9 +77,16 @@ app.post('/error',async (req, res) => {
 });
 
 app.get("/recog/:id", async (req, res) => {
+    //verify id to be a number
     const id = Number(req.params.id);
-    const [response] = (await Recog.getInfoForFile(id))[0] as Array<RowDataPacket>;
-    res.json(response)
+    const results = (await Recog.getInfoForFile(id))[0] as Array<RowDataPacket>;    
+
+    if (results.length === 0) {
+        res.json({error: "Wrong ID", recognised: 3})
+    } else {
+        res.json(results[0])
+    }
+
 })
 
 const port = process.env.PORT || 8000
